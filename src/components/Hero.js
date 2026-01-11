@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image"; // Next.js Image Component
 import { Star, ArrowRight, PlayCircle, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// --- SLIDER DATA ---
 const slides = [
   {
     id: 1,
@@ -50,39 +50,34 @@ export default function Hero() {
   const prevSlide = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
 
   return (
-    <section 
-      id="home" 
-      // PC: h-screen (Full View) | Mobile: h-[100svh] (App View)
-      className="relative bg-white pt-0 h-[100svh] lg:h-screen w-full overflow-hidden flex flex-col lg:flex-row"
-    >
+    <section id="home" className="relative bg-white pt-0 h-[100svh] lg:h-screen w-full overflow-hidden flex flex-col lg:flex-row">
       
-      {/* ==============================
-          1. IMAGE SECTION 
-          Mobile: Top 55% (Standard App)
-          PC: Right 55% (Full Height Immersive)
-      ============================== */}
       <div className="absolute top-0 left-0 w-full h-[55%] lg:absolute lg:top-0 lg:right-0 lg:w-[55%] lg:h-full lg:left-auto z-0">
-        
-        {/* PC Styling: Rounded Bottom-Left Corner for Style */}
         <div className="relative w-full h-full lg:rounded-bl-[6rem] overflow-hidden bg-slate-200 shadow-2xl">
            <AnimatePresence mode="popLayout">
-              <motion.img 
+              <motion.div 
                 key={current}
-                src={slides[current].img}
-                alt="Dental Care"
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+                className="absolute inset-0 w-full h-full"
+              >
+                {/* Optimized Image with Priority */}
+                <Image 
+                  src={slides[current].img}
+                  alt="Dental Care"
+                  fill
+                  className="object-cover"
+                  priority={true} // High priority for Hero image
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                />
+              </motion.div>
            </AnimatePresence>
            
-           {/* Overlays */}
-           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20 lg:hidden"></div> {/* Mobile Overlay */}
-           <div className="hidden lg:block absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/10"></div> {/* PC Overlay */}
+           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20 lg:hidden"></div>
+           <div className="hidden lg:block absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/10"></div>
 
-           {/* PC ONLY: ARROWS (Floating on Image Bottom-Left) */}
            <div className="hidden lg:flex absolute bottom-10 left-10 gap-3 z-20">
               <button onClick={prevSlide} className="bg-white/10 backdrop-blur-md text-white p-4 rounded-full hover:bg-teal-600 hover:border-teal-600 transition-all border border-white/30 active:scale-95 group">
                   <ChevronLeft size={28} className="group-hover:-translate-x-1 transition-transform"/>
@@ -94,18 +89,9 @@ export default function Hero() {
         </div>
       </div>
 
-
-      {/* ==============================
-          2. TEXT CONTENT 
-          Mobile: Bottom Sheet 48% (Overlaps Image)
-          PC: Left 45% (Clean Dashboard Style)
-      ============================== */}
-      <div className="absolute bottom-0 w-full h-[48%] bg-white rounded-t-[2.5rem] px-6 py-8 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] flex flex-col justify-between z-20 
-                      lg:static lg:h-full lg:w-[45%] lg:bg-transparent lg:shadow-none lg:rounded-none lg:pl-20 lg:pr-10 lg:justify-center">
+      <div className="absolute bottom-0 w-full h-[48%] bg-white rounded-t-[2.5rem] px-6 py-8 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] flex flex-col justify-between z-20 lg:static lg:h-full lg:w-[45%] lg:bg-transparent lg:shadow-none lg:rounded-none lg:pl-20 lg:pr-10 lg:justify-center">
           
           <div className="h-full flex flex-col justify-center space-y-4 lg:space-y-8">
-            
-            {/* Rating */}
             <div className="flex justify-center lg:justify-start">
                <div className="inline-flex items-center gap-2 bg-slate-50 border border-slate-100 px-4 py-1.5 rounded-full shadow-sm">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G" className="w-4 h-4" />
@@ -114,7 +100,6 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* ANIMATED TEXT */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
@@ -124,29 +109,23 @@ export default function Hero() {
                 transition={{ duration: 0.5 }}
                 className="text-center lg:text-left space-y-3 lg:space-y-6"
               >
-                {/* Tag */}
                 <div>
                    <span className="inline-block text-teal-600 font-extrabold uppercase tracking-widest text-[10px] lg:text-xs border border-teal-100 bg-teal-50 px-3 py-1 rounded-md">
                     {slides[current].tag}
                    </span>
                 </div>
-
-                {/* Heading */}
                 <h1 className="text-4xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight whitespace-pre-line">
                   {slides[current].title.split(slides[current].highlight)[0]} 
                   <span className={`text-transparent bg-clip-text bg-gradient-to-r ${slides[current].gradient}`}>
                     {slides[current].highlight}
                   </span>
                 </h1>
-                
-                {/* Desc */}
                 <p className="text-sm lg:text-xl text-slate-500 max-w-xs mx-auto lg:mx-0 lg:max-w-lg leading-relaxed font-medium line-clamp-3 lg:line-clamp-none">
                   {slides[current].desc}
                 </p>
               </motion.div>
             </AnimatePresence>
 
-            {/* MOBILE ONLY: SLIDER DOTS */}
             <div className="flex justify-center gap-2 mt-2 lg:hidden">
               {slides.map((_, idx) => (
                 <div 
@@ -156,26 +135,26 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2 lg:pt-6 w-full">
               <Link 
                 href="#appointment" 
                 className="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition shadow-xl shadow-teal-600/20 flex items-center justify-center gap-2 active:scale-95 transform hover:-translate-y-1"
               >
-                  Book Appointment <ArrowRight size={20} />
+                Book Appointment <ArrowRight size={20} />
               </Link>
-              {/* PC ONLY: Watch Tour */}
-              <button className="hidden lg:flex w-full sm:w-auto px-8 py-4 text-slate-700 font-bold hover:text-teal-600 transition items-center justify-center gap-3 group">
-                 <span className="bg-white p-2 rounded-full shadow-md group-hover:scale-110 transition border border-slate-100">
-                    <PlayCircle size={24} className="text-teal-600 fill-teal-50" />
-                 </span>
-                 Watch Tour
-              </button>
+              
+              <Link href="#smilegallery" className="hidden lg:flex w-full sm:w-auto">
+                <button className="w-full px-8 py-4 text-slate-700 font-bold hover:text-teal-600 transition flex items-center justify-center gap-3 group">
+                   <span className="bg-white p-2 rounded-full shadow-md group-hover:scale-110 transition border border-slate-100">
+                      <PlayCircle size={24} className="text-teal-600 fill-teal-50" />
+                   </span>
+                   Watch Tour
+                </button>
+              </Link>
             </div>
 
           </div>
       </div>
-
     </section>
   );
 }

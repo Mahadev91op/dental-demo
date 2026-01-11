@@ -5,6 +5,14 @@ import Link from "next/link";
 import { Menu, X, Phone, Calendar, Clock, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Defined links manually for correct ID mapping
+const navLinks = [
+  { name: "Home", href: "#home" },
+  { name: "Treatments", href: "#services" }, // Maps to Services section
+  { name: "Smile Gallery", href: "#smilegallery" }, // Maps to Gallery section
+  { name: "About", href: "#about" },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +31,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* --- TOP BAR (Client love this) --- */}
+      {/* --- TOP BAR --- */}
       <div className="hidden md:flex bg-teal-900 text-teal-50 text-xs py-2 px-4 justify-between items-center z-[60] relative">
          <div className="flex gap-6">
             <span className="flex items-center gap-1"><Clock size={14}/> Mon - Sat: 10:00 AM - 8:00 PM</span>
@@ -31,7 +39,7 @@ export default function Navbar() {
          </div>
          <div className="flex gap-4">
             <span className="text-teal-200">Emergency? Call us:</span>
-            <span className="font-bold text-white">+91 98765 43210</span>
+            <a href="tel:+919876543210" className="font-bold text-white hover:text-teal-400 transition">+91 98765 43210</a>
          </div>
       </div>
 
@@ -46,10 +54,9 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             
-            {/* DENTAL LOGO */}
-            <Link href="/" className="flex items-center gap-2.5 group">
+            {/* LOGO */}
+            <Link href="#home" className="flex items-center gap-2.5 group">
               <div className="bg-gradient-to-br from-teal-500 to-blue-600 text-white p-2 rounded-xl shadow-lg shadow-teal-500/30">
-                {/* Tooth Icon SVG */}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.2 18.2A9 9 0 0 1 12 2v8l8.4 10.2a9 9 0 1 1-16.2 0Z"/><path d="m14 16-2 3-2-3"/></svg>
               </div>
               <div className="flex flex-col">
@@ -62,19 +69,19 @@ export default function Navbar() {
 
             {/* DESKTOP LINKS */}
             <div className="hidden md:flex items-center space-x-8">
-              {["Home", "Treatments", "Smile Gallery", "About"].map((item) => (
+              {navLinks.map((item) => (
                 <Link
-                  key={item}
-                  href={`#${item.toLowerCase().replace(" ", "")}`}
+                  key={item.name}
+                  href={item.href}
                   className="text-slate-600 font-semibold text-sm hover:text-teal-600 transition relative group"
                 >
-                  {item}
+                  {item.name}
                   <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-teal-600 transition-all group-hover:w-full"></span>
                 </Link>
               ))}
             </div>
 
-            {/* ACTION BUTTON */}
+            {/* BOOK BUTTON */}
             <div className="hidden md:flex items-center gap-4">
               <Link 
                 href="#appointment"
@@ -105,14 +112,14 @@ export default function Navbar() {
             className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden"
           >
             <div className="flex flex-col space-y-6 text-center">
-              {["Home", "Treatments", "Smile Gallery", "About"].map((item) => (
+              {navLinks.map((item) => (
                 <Link
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
+                  key={item.name}
+                  href={item.href}
                   onClick={() => setIsOpen(false)}
                   className="text-xl font-bold text-slate-800 hover:text-teal-600"
                 >
-                  {item}
+                  {item.name}
                 </Link>
               ))}
               <hr className="border-slate-100" />

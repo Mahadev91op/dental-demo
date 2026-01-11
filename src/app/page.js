@@ -1,20 +1,29 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Testimonials from "@/components/Testimonials"; // Import kiya
+
+// Lazy Load components that are below the fold
+const Services = dynamic(() => import("@/components/Services"));
+const About = dynamic(() => import("@/components/About"));
+const Gallery = dynamic(() => import("@/components/Gallery"));
+const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const AppointmentForm = dynamic(() => import("@/components/AppointmentForm"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
+      {/* Navbar aur Hero turant dikhne chahiye, isliye normal import */}
       <Navbar />
       <Hero />
-      <Services />
-      <Testimonials /> {/* Yahan Add kiya */}
       
-      {/* Footer Placeholder */}
-      <section className="py-20 text-center bg-slate-100">
-        <p className="text-slate-400">Next: Appointment Form & Footer...</p>
-      </section>
+      {/* Baaki sections scroll karne par load honge */}
+      <Services />
+      <About />
+      <Gallery />
+      <Testimonials />
+      <AppointmentForm />
+      <Footer />
     </main>
   );
 }
