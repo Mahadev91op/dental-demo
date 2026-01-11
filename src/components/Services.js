@@ -5,11 +5,12 @@ import { Sparkles, ShieldCheck, Microscope, Smile, Baby, Activity, ArrowRight, S
 import { motion } from "framer-motion";
 
 const services = [
+  // ... (Data same rahega) ...
   {
     id: "01",
     title: "Root Canal",
     desc: "Save your tooth with painless, single-sitting rotary therapy.",
-    icon: <Microscope className="w-5 h-5 md:w-8 md:h-8" />,
+    icon: <Microscope className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />,
     color: "text-blue-600",
     bg: "bg-blue-50",
     borderHover: "group-hover:border-blue-500/50",
@@ -20,7 +21,7 @@ const services = [
     id: "02",
     title: "Implants",
     desc: "Permanent titanium replacement for missing teeth. Lifetime warranty.",
-    icon: <ShieldCheck className="w-5 h-5 md:w-8 md:h-8" />,
+    icon: <ShieldCheck className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />,
     color: "text-teal-600",
     bg: "bg-teal-50",
     borderHover: "group-hover:border-teal-500/50",
@@ -31,7 +32,7 @@ const services = [
     id: "03",
     title: "Whitening",
     desc: "Laser Zoom technology for a sparkling white smile in 45 mins.",
-    icon: <Sparkles className="w-5 h-5 md:w-8 md:h-8" />,
+    icon: <Sparkles className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />,
     color: "text-yellow-600",
     bg: "bg-yellow-50",
     borderHover: "group-hover:border-yellow-500/50",
@@ -42,7 +43,7 @@ const services = [
     id: "04",
     title: "Braces",
     desc: "Invisible aligners (Invisalign) to straighten teeth without metal.",
-    icon: <Smile className="w-5 h-5 md:w-8 md:h-8" />,
+    icon: <Smile className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />,
     color: "text-purple-600",
     bg: "bg-purple-50",
     borderHover: "group-hover:border-purple-500/50",
@@ -53,7 +54,7 @@ const services = [
     id: "05",
     title: "Kids Dental",
     desc: "Gentle care, fluoride applications, and cavity prevention for kids.",
-    icon: <Baby className="w-5 h-5 md:w-8 md:h-8" />,
+    icon: <Baby className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />,
     color: "text-pink-600",
     bg: "bg-pink-50",
     borderHover: "group-hover:border-pink-500/50",
@@ -64,7 +65,7 @@ const services = [
     id: "06",
     title: "Checkup",
     desc: "Scaling, fillings, and extractions to keep hygiene perfect.",
-    icon: <Stethoscope className="w-5 h-5 md:w-8 md:h-8" />,
+    icon: <Stethoscope className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />,
     color: "text-emerald-600",
     bg: "bg-emerald-50",
     borderHover: "group-hover:border-emerald-500/50",
@@ -75,7 +76,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-slate-50/50 relative overflow-hidden">
+    <section id="services" aria-label="Dental Treatments" className="py-16 md:py-24 bg-slate-50/50 relative overflow-hidden">
       
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
@@ -106,28 +107,29 @@ export default function Services() {
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
               className={`group relative bg-white rounded-2xl md:rounded-[2rem] p-4 md:p-8 border border-slate-200/60 ${service.borderHover} shadow-sm hover:shadow-2xl ${service.shadowHover} transition-all duration-300 overflow-hidden`}
+              role="article"
+              aria-label={service.title}
             >
               <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-all duration-500 blur-3xl rounded-full group-hover:scale-[2.5] -translate-y-1/2 translate-x-1/2`}></div>
-              <div className="hidden md:block absolute -right-4 -top-4 text-8xl font-extrabold text-slate-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 select-none z-0">{service.id}</div>
+              <div className="hidden md:block absolute -right-4 -top-4 text-8xl font-extrabold text-slate-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 select-none z-0" aria-hidden="true">{service.id}</div>
               <div className="relative z-10">
                   <div className={`relative w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center mb-3 md:mb-8 transition-all duration-300 ${service.bg} ${service.color} group-hover:text-white group-hover:bg-gradient-to-br ${service.gradient} group-hover:scale-110 shadow-sm ring-1 ring-inset ring-black/5`}>
                     {service.icon}
                   </div>
                   <h3 className="text-sm md:text-2xl font-bold text-slate-900 mb-1 md:mb-3 group-hover:text-black transition-colors">{service.title}</h3>
                   <p className="text-[11px] md:text-base font-medium text-slate-500 md:mb-8 leading-tight md:leading-relaxed group-hover:text-slate-600 line-clamp-2 md:line-clamp-none">{service.desc}</p>
-                  <Link href="#appointment" className="hidden md:inline-flex items-center gap-2 text-sm font-bold text-teal-600 transition-colors mt-4 group/link">
+                  <Link href="#appointment" className="hidden md:inline-flex items-center gap-2 text-sm font-bold text-teal-600 transition-colors mt-4 group/link" aria-label={`Learn more about ${service.title}`}>
                     <span className="border-b-2 border-transparent group-hover/link:border-teal-600 pb-0.5 transition-all">Learn More</span>
-                    <ArrowRight size={16} className="transform group-hover/link:translate-x-1 transition-transform" />
+                    <ArrowRight size={16} className="transform group-hover/link:translate-x-1 transition-transform" aria-hidden="true" />
                   </Link>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Sticky Mobile Bar linked to #appointment */}
         {/* <div className="md:hidden fixed bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-xl shadow-2xl flex justify-between items-center z-[9999] border border-slate-800 animate-in slide-in-from-bottom-5">
            <div className="flex items-center gap-3">
-              <div className="bg-teal-500/20 p-2 rounded-full animate-pulse"><Stethoscope size={18} className="text-teal-400"/></div>
+              <div className="bg-teal-500/20 p-2 rounded-full animate-pulse"><Stethoscope size={18} className="text-teal-400" aria-hidden="true"/></div>
               <div>
                 <p className="text-[10px] text-slate-300 uppercase font-bold tracking-wider">Emergency?</p>
                 <p className="font-bold text-sm">Book Visit Now</p>

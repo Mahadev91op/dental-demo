@@ -5,11 +5,11 @@ import Link from "next/link";
 import { Menu, X, Phone, Calendar, Clock, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Defined links manually for correct ID mapping
+// ✅ Correct Links Mapping
 const navLinks = [
   { name: "Home", href: "#home" },
-  { name: "Treatments", href: "#services" }, // Maps to Services section
-  { name: "Smile Gallery", href: "#smilegallery" }, // Maps to Gallery section
+  { name: "Treatments", href: "#services" }, // "Treatments" click karne par Services section par jayega
+  { name: "Smile Gallery", href: "#smilegallery" },
   { name: "About", href: "#about" },
 ];
 
@@ -32,19 +32,21 @@ export default function Navbar() {
   return (
     <>
       {/* --- TOP BAR --- */}
-      <div className="hidden md:flex bg-teal-900 text-teal-50 text-xs py-2 px-4 justify-between items-center z-[60] relative">
+      <div role="region" aria-label="Clinic Information" className="hidden md:flex bg-teal-900 text-teal-50 text-xs py-2 px-4 justify-between items-center z-[60] relative">
          <div className="flex gap-6">
-            <span className="flex items-center gap-1"><Clock size={14}/> Mon - Sat: 10:00 AM - 8:00 PM</span>
-            <span className="flex items-center gap-1"><MapPin size={14}/> City Center, Main Road</span>
+            <span className="flex items-center gap-1"><Clock size={14} aria-hidden="true"/> <span>Mon - Sat: 10:00 AM - 8:00 PM</span></span>
+            <span className="flex items-center gap-1"><MapPin size={14} aria-hidden="true"/> <span>City Center, Main Road</span></span>
          </div>
          <div className="flex gap-4">
             <span className="text-teal-200">Emergency? Call us:</span>
-            <a href="tel:+919876543210" className="font-bold text-white hover:text-teal-400 transition">+91 98765 43210</a>
+            <a href="tel:+919876543210" aria-label="Call us at +91 98765 43210" className="font-bold text-white hover:text-teal-400 transition">+91 98765 43210</a>
          </div>
       </div>
 
       {/* --- MAIN NAVBAR --- */}
       <nav
+        role="navigation"
+        aria-label="Main Navigation"
         className={`fixed w-full z-50 transition-all duration-300 ${
           scrolled
             ? "top-0 bg-white/95 backdrop-blur-md shadow-md py-3"
@@ -55,9 +57,9 @@ export default function Navbar() {
           <div className="flex justify-between items-center">
             
             {/* LOGO */}
-            <Link href="#home" className="flex items-center gap-2.5 group">
+            <Link href="#home" aria-label="City Dental Clinic Home" className="flex items-center gap-2.5 group">
               <div className="bg-gradient-to-br from-teal-500 to-blue-600 text-white p-2 rounded-xl shadow-lg shadow-teal-500/30">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.2 18.2A9 9 0 0 1 12 2v8l8.4 10.2a9 9 0 1 1-16.2 0Z"/><path d="m14 16-2 3-2-3"/></svg>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.2 18.2A9 9 0 0 1 12 2v8l8.4 10.2a9 9 0 1 1-16.2 0Z"/><path d="m14 16-2 3-2-3"/></svg>
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-slate-900 leading-none">
@@ -83,19 +85,23 @@ export default function Navbar() {
 
             {/* BOOK BUTTON */}
             <div className="hidden md:flex items-center gap-4">
-              <Link 
-                href="#appointment"
-                className="bg-teal-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-xl shadow-teal-600/20 hover:bg-teal-700 hover:shadow-teal-600/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
-              >
-                <Calendar size={16} />
-                Book Appointment
+              <Link href="#appointment">
+                <button aria-label="Book an Appointment" className="bg-teal-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-xl shadow-teal-600/20 hover:bg-teal-700 hover:shadow-teal-600/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                  <Calendar size={16} aria-hidden="true" />
+                  Book Appointment
+                </button>
               </Link>
             </div>
 
             {/* MOBILE MENU BTN */}
             <div className="md:hidden">
-              <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-slate-800">
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              <button 
+                onClick={() => setIsOpen(!isOpen)} 
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+                className="p-2 text-slate-800"
+              >
+                {isOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
               </button>
             </div>
           </div>
@@ -110,6 +116,9 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
           >
             <div className="flex flex-col space-y-6 text-center">
               {navLinks.map((item) => (
@@ -126,10 +135,10 @@ export default function Navbar() {
               <div className="bg-teal-50 p-4 rounded-xl">
                  <p className="text-sm text-slate-500 mb-2">Need Help?</p>
                  <a href="tel:+919876543210" className="text-xl font-bold text-teal-700 block mb-4">+91 98765 43210</a>
-                 <Link href="#appointment" onClick={() => setIsOpen(false)} className="block w-full">
-                    <div className="w-full bg-teal-600 text-white py-3 rounded-lg font-bold shadow-lg text-center">
+                 <Link href="#appointment" onClick={() => setIsOpen(false)}>
+                    <button className="w-full bg-teal-600 text-white py-3 rounded-lg font-bold shadow-lg">
                     Book Appointment
-                    </div>
+                    </button>
                  </Link>
               </div>
             </div>
