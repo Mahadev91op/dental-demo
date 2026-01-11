@@ -152,8 +152,8 @@ export default function Services() {
                 <p className="font-bold text-sm">Book Visit Now</p>
               </div>
            </div>
-           <Link href="#appointment">
-             <button className="bg-teal-600 active:bg-teal-700 px-6 py-2.5 rounded-lg font-bold text-xs shadow-lg shadow-teal-500/20 transition-transform active:scale-95">Book</button>
+           <Link href="#appointment" className="bg-teal-600 active:bg-teal-700 px-6 py-2.5 rounded-lg font-bold text-xs shadow-lg shadow-teal-500/20 transition-transform active:scale-95 text-white inline-block">
+             Book
            </Link>
         </div>
 

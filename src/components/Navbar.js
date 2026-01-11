@@ -76,11 +76,12 @@ export default function Navbar() {
 
             {/* ACTION BUTTON */}
             <div className="hidden md:flex items-center gap-4">
-              <Link href="#appointment">
-                <button className="bg-teal-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-xl shadow-teal-600/20 hover:bg-teal-700 hover:shadow-teal-600/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
-                  <Calendar size={16} />
-                  Book Appointment
-                </button>
+              <Link 
+                href="#appointment"
+                className="bg-teal-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-xl shadow-teal-600/20 hover:bg-teal-700 hover:shadow-teal-600/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
+              >
+                <Calendar size={16} />
+                Book Appointment
               </Link>
             </div>
 
@@ -118,10 +119,10 @@ export default function Navbar() {
               <div className="bg-teal-50 p-4 rounded-xl">
                  <p className="text-sm text-slate-500 mb-2">Need Help?</p>
                  <a href="tel:+919876543210" className="text-xl font-bold text-teal-700 block mb-4">+91 98765 43210</a>
-                 <Link href="#appointment" onClick={() => setIsOpen(false)}>
-                    <button className="w-full bg-teal-600 text-white py-3 rounded-lg font-bold shadow-lg">
+                 <Link href="#appointment" onClick={() => setIsOpen(false)} className="block w-full">
+                    <div className="w-full bg-teal-600 text-white py-3 rounded-lg font-bold shadow-lg text-center">
                     Book Appointment
-                    </button>
+                    </div>
                  </Link>
               </div>
             </div>

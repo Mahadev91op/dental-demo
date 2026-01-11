@@ -158,16 +158,17 @@ export default function Hero() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2 lg:pt-6 w-full">
-              <Link href="#appointment" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition shadow-xl shadow-teal-600/20 flex items-center justify-center gap-2 active:scale-95 transform hover:-translate-y-1">
+              <Link 
+                href="#appointment" 
+                className="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition shadow-xl shadow-teal-600/20 flex items-center justify-center gap-2 active:scale-95 transform hover:-translate-y-1"
+              >
                   Book Appointment <ArrowRight size={20} />
-                </button>
               </Link>
               {/* PC ONLY: Watch Tour */}
               <button className="hidden lg:flex w-full sm:w-auto px-8 py-4 text-slate-700 font-bold hover:text-teal-600 transition items-center justify-center gap-3 group">
-                 <div className="bg-white p-2 rounded-full shadow-md group-hover:scale-110 transition border border-slate-100">
+                 <span className="bg-white p-2 rounded-full shadow-md group-hover:scale-110 transition border border-slate-100">
                     <PlayCircle size={24} className="text-teal-600 fill-teal-50" />
-                 </div>
+                 </span>
                  Watch Tour
               </button>
             </div>
